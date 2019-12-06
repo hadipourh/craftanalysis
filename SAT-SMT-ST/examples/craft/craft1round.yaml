@@ -1,0 +1,12 @@
+# input file for CRAFT to find the best single tweak differential trail covering 1 round
+---
+cipher: craft
+sweight: 0
+rounds: 1
+wordsize: 64
+mode: 0
+#iterative: True
+#boolector: True
+# fixedVariables:
+# - x0: "0x00A0000000AA00A0"
+...

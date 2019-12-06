@@ -1,0 +1,23 @@
+---
+cipher: ein_even_6r
+sweight: 28
+endweight: 65
+rounds: 5
+wordsize: 64
+mode: 4
+#iterative: True
+#boolector: True
+fixedVariables:
+- x0: "0xAA000000AA00AAA0"
+- z6[3:0] : "0x0"
+- z6[7:4] : "0x0"
+- z6[11:8] : "0x0"
+- z6[23:20] : "0x0"
+- z6[27:24] : "0x0"
+- z6[31:28] : "0x0"
+- z6[39:36] : "0x0"
+- z6[43:40] : "0x0"
+- z6[47:44] : "0x0"
+- z6[55:52] : "0x0"
+- z6[59:56] : "0x0"
+- z6[63:60] : "0x0"

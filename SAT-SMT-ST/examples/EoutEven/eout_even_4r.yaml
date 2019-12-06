@@ -1,0 +1,23 @@
+---
+cipher: eout_even
+sweight: 28
+endweight: 40
+rounds: 4
+wordsize: 64
+mode: 4
+#iterative: True
+#boolector: True
+fixedVariables:
+- x3: "0xAA000000000000A0"      
+- z0[3:0] : "0x0"
+- z0[7:4] : "0x0"
+- z0[11:8] : "0x0"
+- z0[23:20] : "0x0"
+- z0[27:24] : "0x0"
+- z0[31:28] : "0x0"
+- z0[39:36] : "0x0"
+- z0[43:40] : "0x0"
+- z0[47:44] : "0x0"
+- z0[55:52] : "0x0"
+- z0[59:56] : "0x0"
+- z0[63:60] : "0x0"

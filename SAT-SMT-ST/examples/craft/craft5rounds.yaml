@@ -1,0 +1,13 @@
+# input file for CRAFT to find the differential probability of a single tweak differental trail covering 5 rounds
+# with fixed input and output differences
+
+cipher: craft
+sweight: 0
+rounds: 5
+wordsize: 64
+mode: 4
+#iterative: True
+#boolector: True
+fixedVariables:
+- x0: "0x0A000000AA000A00"
+- x5: "0x00A0A00A0000A000"

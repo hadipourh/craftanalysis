@@ -1,0 +1,28 @@
+# Example input file for CRAFT to find the best single tweak differential characteristic for 4 round
+---
+cipher: ein_tk2_7r
+sweight: 33
+endweight: 44
+rounds: 7
+wordsize: 64
+mode: 4
+#iterative: True
+#boolector: True
+fixedVariables:
+- x0: "0x00AA000000A0000A"
+- tk2: "0x00000000000000A0"
+- s6[3:0] : "0x0"
+- s6[7:4] : "0x0"
+- s6[15:12] : "0x0"
+- s6[19:16] : "0x0"
+- s6[27:24] : "0x0"
+- s6[31:28] : "0x0"
+- s6[35:32] : "0x0"
+- s6[39:36] : "0x0"
+- s6[43:40] : "0x0"
+- s6[47:44] : "0x0"
+- s6[51:48] : "0x0"
+- s6[55:52] : "0x0"
+- s6[59:56] : "0x0"
+- s6[63:60] : "0x0"
+#################################

@@ -1,0 +1,17 @@
+# input file for CRAFT to find the best related tweak differential
+# with fixed input and output differences
+---
+cipher: craftrtk1
+sweight: 45
+endweight: 55
+rounds: 8
+wordsize: 64
+mode: 4
+#iterative: True
+#boolector: True
+fixedVariables:
+- k0: "0x0000000000000000"
+- k1: "0x0000000000000000"
+- x0: "0xA0000AA0A000A050"
+- t0: "0x00000A0000000000"
+
