@@ -33,11 +33,11 @@ Todo ...
 
 ![eout_even](/Images/Even/eout_even_new.svg)
 
-![ein_odd](/Images/Even/ein_odd_new.svg)
+![ein_odd](/Images/Odd/ein_odd_new.svg)
 
-![em_odd](/Images/Even/em_odd_new.svg)
+![em_odd](/Images/Odd/em_odd_new.svg)
 
-![eout_odd](/Images/Even/eout_odd_new.svg)
+![eout_odd](/Images/Odd/eout_odd_new.svg)
 
 ---
 
