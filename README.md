@@ -1,5 +1,7 @@
 # Comprehensive Security Analysis of CRAFT
 
+![craft_round_function](/Images/CRAFT/craft_round_function.svg "A Round of CRAFT")
+
 
 ## Zero-Correlation Cryptanalysis
 
@@ -13,13 +15,13 @@ Todo ...
 
 Todo ...
 
-![ZC-TK2](/Images/ZeroCorrelation/ZC-TK2-14Rounds.svg "Linear Equivalent of CRAFT") *Linear Equivalent of CRAFT*
+![ZC-TK2](/Images/ZeroCorrelation/ZC-TK2-14Rounds.svg "Linear Equivalent of CRAFT")
 
 ### RTK3
 
 Todo ...
 
-![ZC-TK3](/Images/ZeroCorrelation/ZC-TK3-14Rounds.svg "Linear Equivalent of CRAFT") *Linear Equivalent of CRAFT*
+![ZC-TK3](/Images/ZeroCorrelation/ZC-TK3-14Rounds.svg "Linear Equivalent of CRAFT")
 
 ---
 
