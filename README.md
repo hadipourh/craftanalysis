@@ -3,7 +3,7 @@
 ![craft_round_function](/Images/CRAFT/craft_round_function.svg "A Round of CRAFT")
 
 ## Prerequisites
-
+ Todo ...
 
 ## Zero-Correlation Cryptanalysis
 
