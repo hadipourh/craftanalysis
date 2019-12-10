@@ -1,5 +1,5 @@
 /*
-Experimental verification of theretical results obtained in differential cryptanalysis of CRAFT
+Experimental verification of theoretical results obtained in differential cryptanalysis of CRAFT
 Copyright (C) 2019  Hosein Hadipour
 
 This program is free software: you can redistribute it and/or modify

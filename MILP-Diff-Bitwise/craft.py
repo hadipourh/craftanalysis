@@ -1,5 +1,5 @@
 '''
-Applying the MILP-based method to find zero-correlation distinguishers of CRAFT
+Applying the MILP-based method to find differential distinguishers of CRAFT
 Copyright (C) March 7, 2019  Hosein Hadipour
 
 This program is free software: you can redistribute it and/or modify
