@@ -50,9 +50,13 @@ Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this 
 ## Differential Cryptanalysis
 
 In order to find a lower bound for differential, we did the following steps:
+
 1- Find an optimal activity pattern via a word oriented MILP model
+
 2- Check to see wther there exist an optimum differential trail with the obtained activity pattern. To do this, we construct a SMT model corresponding to the problem of finding an optimum differential trail, and then add all constraints corresponding to zero words in the obtained activity pattern, which makes the probelm very easier. Then an SMT solver like stp, is called to solve the obtained SMT problem. However, all this steps can be done by a MILP solver too. 
+
 2- Divide a long differential trail into some smaller pices (divide and conqure), which makes the problem of counting differential trails easier. 
+
 3- Fixed the input/output difference of each smaller pieces, and then call the optimized CryptoSMT to find a lower bound for the obtained differential effect.
 
 ![ein_even](/Images/Even/ein_even_new.svg)
