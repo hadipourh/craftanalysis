@@ -13,37 +13,37 @@ In order to find a zero-correlation distinguisher, a MILP model containing all c
 
 ### RTK0
 
-We found a 14-round zero-correlation distinguisher for the case RTK0. You can see the proof of this case in more details in the paper. You can probe this case by running the following command in directory: `/Zero-Correlation/ZeroCorrelation-rev1-tk0/`:
-
+We've found a 14-round zero-correlation distinguisher for the case RTK0. You can see the proof of this case in more details in the paper. If you are interested to know how we could find it, we invite you to take a look at the codes in : `/Zero-Correlation/ZeroCorrelation-rev1-tk0/`, and the run the following command:
 ```
 python3 main.py
 ```
-If you are interested to use this tool for inspecting the other number of rounds in case of RTK0, you mereley need to change the value of a parameter in line 34 of `main.py` file, and use `python3 main.py` again, to run the program, for the specified number of rounds. 
+If you would like to use this tool for inspecting a specified numer of rounds in case RTK0, you mereley need to change the value of a parameter called `rounds`, in line 34 of `main.py` file, and use `python3 main.py` again, to run the modified program. 
 
 ![ZC-TK0](/Images/ZeroCorrelation/zc_14rounds_rt0.svg)
 
 ### RKT1
-For this case we have not found a zero-correlation distinguisher covering more than 13 rounds of CRAFT, in the related tweak mode, by our MILP-based tool, which can found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk1/`, and can be executed by typing the folloowing command in terminal:
+For this case we have not found a zero-correlation distinguisher covering more than 13 rounds of CRAFT, in the related tweak mode, by our MILP-based tool. All the codes we have used for this case, can be found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk1/`. If want to check our claim for this case, you are invited take a look at the codes, and run the following command, to reproduce our results:
 ```
 python3 main.py
 ```
 ### RTK2
 
-For this case we have found a 14-round distinguisher via our MILP-based tool. The following picture shows a mathematical proof for our distinguiser. The code we have use d for this case, are placed in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk2`, and if you want to run the program, you need to open your terminal in this directory and type the follosing command: 
+For this case we have also found a 14-round distinguisher via our MILP-based tool. The following picture shows a mathematical proof for our distinguiser. The codes we have used for this case, are placed in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk2`, and if you want to run the program, and reproduce our results, you need to open your terminal in this directory and type the following command: 
 ```
 python3 main.py
 ```
-Just like the other cases, the value of the parameter `rounds` in line 34 of `main.py` depicts the number of rounds in the analysis, and If you would like to analize an specified number of round, you merely need to change the value of this paarmeter by what you want, and execute `main.py` by Python3 again. 
+Just like the other cases, the value of the parameter `rounds` in line 34 of `main.py`, depicting the number of rounds in the analysis. 
 
 ![ZC-TK2](/Images/ZeroCorrelation/ZC-TK2-14Rounds.svg "Linear Equivalent of CRAFT")
 
 ### RTK3
-The following figure shows a mathematical proof, for the 14-round zero-correlation distinguisher we have found in case RTK3, by our MILP-based tool. The codes associated with this case can be found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk3`, and if you would like to see how we found it, you can execute our program by tyiping the following command:
+The following figure, shows a mathematical proof, for the 14-round zero-correlation distinguisher we have found in case RTK3, by our MILP-based tool. The codes associated with this case can be found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk3`, and can be execute by the following command:
 ```
 python3 main.py
 ```
-
 ![ZC-TK3](/Images/ZeroCorrelation/ZC-TK3-14Rounds.svg "Linear Equivalent of CRAFT")
+
+Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this method, we didn't find a zero-correlation distinguisher, covering more than 14 rounds in these cases. Note that, sometimes finding a mathematical proof for the obtained distinguishre, might be not easy, just like the distinguisher we have presented for 14-rounds of CRAFT in case RTK0. 
 
 ---
 
