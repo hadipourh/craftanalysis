@@ -55,9 +55,11 @@ In order to find a lower bound for differential, we did the following steps:
 
 2- Check to see whether there is an optimum differential trail satisfying the obtained activity pattern. In order to do this, we construct a SMT model corresponding to the problem of finding an optimum differential trail, and then add all constraints corresponding to zero words in the obtained activity pattern, which makes the probelm very easier. Then an SMT solver like stp, is called to solve the obtained SMT problem. However, all this steps can be done by a MILP solver too. 
 
-2- Divide a long differential trail into some smaller pices (divide and conqure), which makes the problem of counting differential trails easier. 
+2- Divide a long differential trail into some smaller pieces (divide and conqure), which makes the problem of counting differential trails easier. 
 
-3- Fixed the input/output difference of each smaller pieces, and then call the optimized CryptoSMT to find a lower bound for the obtained differential effect.
+3- Fixed the input/output difference of each smaller pieces, and then call the optimized CryptoSMT to find a lower bound for the differential effect of the obtained differentials for each partition. 
+
+4- Todo ...
 
 ![ein_even](/Images/Even/ein_even_new.svg)
 
