@@ -18,21 +18,30 @@ We found a 14-round zero-correlation distinguisher for the case RTK0. You can se
 ```
 python3 main.py
 ```
+If you are interested to use this tool for inspecting the other number of rounds in case of RTK0, you mereley need to change the value of a parameter in line 34 of `main.py` file, and use `python3 main.py` again, to run the program, for the specified number of rounds. 
 
 ![ZC-TK0](/Images/ZeroCorrelation/zc_14rounds_rt0.svg)
 
 ### RKT1
-For this case we didn't found a zero-correlation covering more than 13 rounds of CRAFT. 
-
+For this case we have not found a zero-correlation distinguisher covering more than 13 rounds of CRAFT, in the related tweak mode, by our MILP-based tool, which can found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk1/`, and can be executed by typing the folloowing command in terminal:
+```
+python3 main.py
+```
 ### RTK2
 
-To do ...
+For this case we have found a 14-round distinguisher via our MILP-based tool. The following picture shows a mathematical proof for our distinguiser. The code we have use d for this case, are placed in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk2`, and if you want to run the program, you need to open your terminal in this directory and type the follosing command: 
+```
+python3 main.py
+```
+Just like the other cases, the value of the parameter `rounds` in line 34 of `main.py` depicts the number of rounds in the analysis, and If you would like to analize an specified number of round, you merely need to change the value of this paarmeter by what you want, and execute `main.py` by Python3 again. 
 
 ![ZC-TK2](/Images/ZeroCorrelation/ZC-TK2-14Rounds.svg "Linear Equivalent of CRAFT")
 
 ### RTK3
-
-Todo ...
+The following figure shows a mathematical proof, for the 14-round zero-correlation distinguisher we have found in case RTK3, by our MILP-based tool. The codes associated with this case can be found in directory `./Zero-Correlation/ZeroCorrelation-rev1-tk3`, and if you would like to see how we found it, you can execute our program by tyiping the following command:
+```
+python3 main.py
+```
 
 ![ZC-TK3](/Images/ZeroCorrelation/ZC-TK3-14Rounds.svg "Linear Equivalent of CRAFT")
 
@@ -40,7 +49,11 @@ Todo ...
 
 ## Differential Cryptanalysis
 
-Todo ...
+In order to find a lower bound for differential, we did the following steps:
+1- Find an optimal activity pattern via a word oriented MILP model
+2- Check to see wther there exist an optimum differential trail with the obtained activity pattern. To do this, we construct a SMT model corresponding to the problem of finding an optimum differential trail, and then add all constraints corresponding to zero words in the obtained activity pattern, which makes the probelm very easier. Then an SMT solver like stp, is called to solve the obtained SMT problem. However, all this steps can be done by a MILP solver too. 
+2- Divide a long differential trail into some smaller pices (divide and conqure), which makes the problem of counting differential trails easier. 
+3- Fixed the input/output difference of each smaller pieces, and then call the optimized CryptoSMT to find a lower bound for the obtained differential effect.
 
 ![ein_even](/Images/Even/ein_even_new.svg)
 
