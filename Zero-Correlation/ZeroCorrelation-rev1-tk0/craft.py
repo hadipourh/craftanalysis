@@ -415,7 +415,7 @@ class Craft:
         """
         Generate the MILP model of CRAFT
         """
-        self.create_objective_function()
+        #self.create_objective_function()
         self.constraint()
         self.variable_binary()
 
