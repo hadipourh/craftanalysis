@@ -311,7 +311,8 @@ print("number of optimum trails for %d rounds : 2^%0.4f" % (14, num_of_optimum_t
     p_14r = 2^-63.8061
     number of optimum trails for 14 rounds : 2^39.1814
 
-We use the same strategy for related-twek setting, and you can use the following commands to reproduce our results in related-tweak setting.
+We use the same strategy for related-twek setting, and you can use the following commands in folder [SAT-SMT-RT](/SAT-SMT-RT), to reproduce our results in related-tweak setting.
+
 ### RTK0-15 rounds-1
 ```
 python3 cryptosmt_ein_tk0_5r_usedfor_15r.py --inputfile examples/craftrtk/rtk0_5_rounds_usedfor_ein_15r.yaml
