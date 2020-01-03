@@ -240,7 +240,8 @@ and then run it by the following command:
 ```
 ./craft_ein_even.o
 ```
-If you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical values we have obtained for this component is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.  
+if you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical values we have obtained for this component is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.
+
 ---
 
 ## Integral Cryptanalysis Based on Division Property
