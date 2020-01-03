@@ -4,14 +4,20 @@
 
 ## Contents
 1.[Prerequisites](#prerequisites)
+
 2.[Zero-Correlation Cryptanalysis](#zc)
+
 3.[Differential Cryptanalysis](#diff)
+
 4.[Experimental Verification](#experimental_verification)
+
 5.[Integral Cryptanalysis](#integral)
 
 <a name="prerequisites"></a>
 ## Prerequisites and Installation
- Todo ...
+In this repository, both MILP, and SMT/SAT based-mehtods are used to analyze CRAFT. For MILP-based method [Gurobi](https://www.gurobi.com/), is used as the solver. The MILP-based methods are also implemented by [Python3](https://www.python.org/). Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
+
+We use [CryptoSMT](https://github.com/kste/cryptosmt) for computing the differential effects. We also improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. If you want to use our SAT/SMT-based tools you need to do the same installation recepies as CryptoSMT. If you have already installed CryptoSMT, you only need to replace the `config.py` file with your own `config.py`. 
 
 <a name="zc"></a>
 ## Zero-Correlation Cryptanalysis
