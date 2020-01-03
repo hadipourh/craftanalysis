@@ -232,7 +232,7 @@ print("number of optimum trails for %d rounds : 2^%0.4f" % (14, num_of_optimum_t
 
 ## Experimental Verification of Some Differential Distinguishers
 
-In orderto verify our results to results, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder ![ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these 
+In orderto verify our results to results, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these 
 
 ---
 
