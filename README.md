@@ -249,6 +249,7 @@ if you do the above simmulations, you see that the experimental probability is a
 Before we can improve the integral distinguishers of CRAFT, we verfied the designers' claim for this analysis. In order to verify the designers' claim, we have prepared a program to find the integral distinguishers of CRAFT, using division property based on two subsets. The following picture, depicts the variables used in the MILP model which is created by the program to model the propagation of division properties through the cipher.
 
 ![integral_vars](/Images/Integral/craft_integral_vars.svg)
+
 You can find this program in the folder [MILP-Integral](/MILP-Integral), and run it by the following command: 
 ```
 python3 main.py
