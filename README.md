@@ -20,7 +20,7 @@ In this repository, both MILP, and SMT/SAT based methods are used to analize CRA
 
 [CryptoSMT](https://github.com/kste/cryptosmt) is used for computing the differential effects. We have improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. Therefore, If you want to use our SAT/SMT-based tools, you need to do the same installation recepies as CryptoSMT. Note that, if you already have installed CryptoSMT, you only need to replace the `config.py` file with your own `config.py` file in folders [SAT-SMT-ST](/SAT-SMT-ST), and [/SAT-SMT-RT](/SAT-SMT-RT). 
 
-While the majority of codes in this repository, have been written with Python3 language, we have used [C++] (https://en.wikipedia.org/wiki/C%2B%2B), for experimental verification of our results in differential cryptanalysis of CRAFT. We've also used [OpenMP](https://www.openmp.org/) to achive a better performance. In order to compile the C++ codes in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff), you can use g++ compiler with `-fopenmp` compiler flag. 
+While the majority of codes in this repository, have been written with Python3 language, we have used [C++](https://en.wikipedia.org/wiki/C%2B%2B), for experimental verification of our results in differential cryptanalysis of CRAFT. We've also used [OpenMP](https://www.openmp.org/) to achive a better performance. In order to compile the C++ codes in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff), you can use g++ compiler with `-fopenmp` compiler flag. 
 
 <a name="zc"></a>
 ## Zero-Correlation Cryptanalysis
