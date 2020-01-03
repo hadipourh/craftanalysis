@@ -378,5 +378,3 @@ You can find this program in the folder [MILP-Integral](/MILP-Integral), and run
 ```
 python3 main.py
 ```
-
-# License
