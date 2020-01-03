@@ -363,7 +363,7 @@ and then run it by the following command:
 ```
 ./craft_ein_even.o
 ```
-if you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical values we have obtained for this component is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.
+If you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical value we have obtained for this component, when the input, and output differences are `0xAA000000AA00AAA0`, and `0x0A0005000A0000A0` respectively, is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.
 
 ---
 
