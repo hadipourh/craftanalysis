@@ -2,9 +2,18 @@
 
 ![craft_round_function](/Images/CRAFT/craft_round_function.svg "A Round of CRAFT")
 
-## Prerequisites
+## Contents
+1.[Prerequisites](#prerequisites)
+2.[Zero-Correlation Cryptanalysis](#zc)
+3.[Differential Cryptanalysis](#diff)
+4.[Experimental Verification](#experimental_verification)
+5.[Integral Cryptanalysis](#integral)
+
+<a name="prerequisites"></a>
+## Prerequisites and Installation
  Todo ...
 
+<a name="zc"></a>
 ## Zero-Correlation Cryptanalysis
 
 We use MILP-based method to find zero-correlation distinguishers, and then give a mathematical proof for them. You can find all the codes we've used for zero-correlation attack in the file [Zero-Correlation](https://github.com/hadipourh/craftanalysis/tree/master/Zero-Correlation). Since the linear behavior of CRAFT in the related tweak model, depends on the starting round, there are four sub-folders in this file, each one is associated with one out of four cases RTK0, RTK1, RTK2, and RTK3.
@@ -44,7 +53,7 @@ python3 main.py
 Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this method, we didn't find a zero-correlation distinguisher, covering more than 14 rounds in these cases. Note that, sometimes finding a mathematical proof for the obtained distinguishre, might be not easy, just like the distinguisher we have presented for 14-rounds of CRAFT in case RTK0. 
 
 ---
-
+<a name="diff"></a>
 ## Differential Cryptanalysis
 
 The first observation that motivated us to begin the cryptanalysis of CRAFT, is related to the influence of clustering effect on the differential cryptanalysis of CRAFT. It dates back to that day, we added CRAFT to the CryptoSMT's cipher suite. When we was checking the corretness of our implementation we obserevd that the existing bounds for the differential effects of CRAFT that were claimed by the designers, can be dramatically improved, but we only could use CryptoSMT, or bit-oriented MILP models, for the small number of rounds, and we couldn't find a bound for large number of rounds, because SAT/SMT or MILP-based methods are not that efficient for large number of rounds. 
@@ -229,7 +238,7 @@ print("number of optimum trails for %d rounds : 2^%0.4f" % (14, num_of_optimum_t
     p_14r = 2^-63.8061
     number of optimum trails for 14 rounds : 2^39.1814
 
-
+<a name="experimental_verification"></a>
 ## Experimental Verification of Some Differential Distinguishers
 
 In order to verify our results for differential analysis of CRAFt, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these codes, you need to use `-fopemp` comipler flag when you are compiling the codes. For example if you want to compile `craft_ein_odd.cpp` to compare the empiricial, with so-called theoretical values we have obtained for the differential effect of the first component Ein-Even-4r used in our 9/11/13-round differentail distinguishers, you can compile it by the following command: 
@@ -244,6 +253,7 @@ if you do the above simmulations, you see that the experimental probability is a
 
 ---
 
+<a name="integral"></a>
 ## Integral Cryptanalysis Based on Division Property
 
 Before we can improve the integral distinguishers of CRAFT, we verfied the designers' claim for this analysis. In order to verify the designers' claim, we have prepared a program to find the integral distinguishers of CRAFT, using division property based on two subsets. The following picture, depicts the variables used in the MILP model which is created by the program to model the propagation of division properties through the cipher.
