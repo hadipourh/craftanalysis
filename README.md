@@ -57,14 +57,11 @@ We knew that CryptoSMT uses a naive approach to model differntial behaviour of a
 
 The following pictures, depict those smaller pieces we have used to build differential distinguishers for CRAFT in the single-tweak setting. As you can see in these pictures, all of them are optimimum from the numuber of active Sboxes point of view. We evaluate the probability of each part spereately, and then multiply them together (according to markov assumption) to fint the probability of the whole differntial distinguisher.
 
-Since the differences in the middle parts are not fixed and can take more than one values, we evaluated the probaility for all combination of possible input/output differences for each aprt and then arranged them into a matrix. In other words we obtain a matrix containing the differential effects corresponding to a fixed input/output differences for each part, and the final bounds for the whole differential effects are obtained by multiplying the matrices corresponding to it's components. We used different componetes to cover even, and odd number of rounds, and you can see the possible input/output differences for each part in this directories: `/Results-Diff-ST/Eveneven_possible_ios.txt`, and `/Results-Diff-ST/Odd/odd_possible_ios.txt`. We use the same strategy for related-twek setting. 
+Since the differences in the middle parts are not fixed and can take more than one values, we evaluated the probaility for all combination of possible input/output differences for each aprt and then arranged them into a matrix. In other words we obtain a matrix containing the differential effects corresponding to a fixed input/output differences for each part, and the final bounds for the whole differential effects are obtained by multiplying the matrices corresponding to it's components. We used different componetes to cover even, and odd number of rounds, and you can see the possible input/output differences for each part in this directories: `/Results-Diff-ST/Eveneven_possible_ios.txt`, and `/Results-Diff-ST/Odd/odd_possible_ios.txt`. We use the same strategy for related-twek setting. All of our distinguishers are consisted of three components, Ein, Em, and Eout, except for that 13-round differential distinguisher which is consisted of four parts, Ein, Em, Em, and Eout.  In other words istead of using a 4-round middle part we have used two consecuitive 2-round components to build the middle part of that 13-round distinguisher. 
+
+### 
 
 ![ein_even](/Images/Even/ein_even_new.svg)
-
-<p>
-    <img src="/Images/Even/ein_even_new.svg" alt>
-    <em>ein even</em>
-</p>
 
 ![em_even](/Images/Even/em_even_new.svg)
 ![em_even_2r_matrix](/Results-Diff-ST/Even/em_even_2r.svg)
