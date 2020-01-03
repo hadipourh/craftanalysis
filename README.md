@@ -16,11 +16,11 @@
 <a name="prerequisites"></a>
 ## Prerequisites and Installation
 
-In this repository, both MILP, and SMT/SAT based methods are used to analyze CRAFT. For MILP-based method we use [Python3](https://www.python.org/) to produce the MILP models, and [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
+In this repository, both MILP, and SMT/SAT based methods are used to analize CRAFT. For MILP-based method we use [Python3](https://www.python.org/) to produce the MILP models, and [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
 
-[CryptoSMT](https://github.com/kste/cryptosmt) is used for computing the differential effects. We have improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. Therefore, If you want to use our SAT/SMT-based tools you need to do the same installation recepies as CryptoSMT. Note that, if you already have installed CryptoSMT, you only need to replace the `config.py` file with your own `config.py` file in folders [SAT-SMT-ST](/SAT-SMT-ST), and [/SAT-SMT-RT](/SAT-SMT-RT). 
+[CryptoSMT](https://github.com/kste/cryptosmt) is used for computing the differential effects. We have improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. Therefore, If you want to use our SAT/SMT-based tools, you need to do the same installation recepies as CryptoSMT. Note that, if you already have installed CryptoSMT, you only need to replace the `config.py` file with your own `config.py` file in folders [SAT-SMT-ST](/SAT-SMT-ST), and [/SAT-SMT-RT](/SAT-SMT-RT). 
 
-While the majority of codes in this repository, have been written by Python3 language, we have used [C++] (https://en.wikipedia.org/wiki/C%2B%2B), for experimental verification of our results in differential cryptanalysis of CRAFT. We've also used [OpenMP](https://www.openmp.org/) to achive a better performance. In order to compile the C++ codes in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff), you can use g++ compiler with `-fopenmp` compiler flag. 
+While the majority of codes in this repository, have been written with Python3 language, we have used [C++] (https://en.wikipedia.org/wiki/C%2B%2B), for experimental verification of our results in differential cryptanalysis of CRAFT. We've also used [OpenMP](https://www.openmp.org/) to achive a better performance. In order to compile the C++ codes in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff), you can use g++ compiler with `-fopenmp` compiler flag. 
 
 <a name="zc"></a>
 ## Zero-Correlation Cryptanalysis
@@ -67,62 +67,126 @@ Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this 
 
 The first observation that motivated us to begin the cryptanalysis of CRAFT, is related to the influence of clustering effect on the differential cryptanalysis of CRAFT. It dates back to that day, we added CRAFT to the CryptoSMT's cipher suite. When we was checking the corretness of our implementation we obserevd that the existing bounds for the differential effects of CRAFT that were claimed by the designers, can be dramatically improved, but we only could use CryptoSMT, or bit-oriented MILP models, for the small number of rounds, and we couldn't find a bound for large number of rounds, because SAT/SMT or MILP-based methods are not that efficient for large number of rounds. 
 
-So we decided to find a way to overcome this difficulty. The first idea, was building a word-oriented MILP model for CRAFT, and using the obtained activity pattern to make the bit-oriented model easier, beacuse in contrast to bit-oriented MILP or SMT/SAT models, a word-oriented one can be solved very fast even for large number of rounds.
+So we decided to find a way to overcome this difficulty. The first idea, was building a word-oriented MILP model for CRAFT, and using the obtained activity pattern to make the bit-oriented model easier, beacuse in contrast to bit-oriented MILP or SMT/SAT models, a word-oriented one can be solved very fast even for large number of rounds. 
 
-In other words, the obtained solutions from the word-roiented MILP problem, showed us, what the activity pattern of an optimum differential trail could be, and then we substituted all passive variables in the bit-oriented models with zeros, which made the problem easier, and we could solve the bit-oriented model faster, to find a real differential trail. Another interesting fact we found in this stage was that, the activity pattern of an optimum differential trail is unique, when the input/output activity patterns are fixed! However the problem of finding an obtimum differential trail for large number of rounds were still time consuming when we used CryptoSMT. 
+In other words, the obtained solutions from the word-roiented MILP problem, showed us, what the activity pattern of an optimum differential trail could be, and then we substituted all passive variables in the bit-oriented models with zeros, which made the problem easier, and we could solve the bit-oriented model faster, to find a real differential trail. A program has been prepared in folder [MILP-Diff-Activity-Pattern](/MILP-Diff-Activity-Pattern), to find an optimum activity pattern, and obtain the minimum number of active Sboxes for a given number of rounds in single-tweak, and realted-tweak models. For example if you set the `rounds`, and `related_tweak` parameters in the main file as follows:
+```
+rounds = 18
+related_tweak = 0
+```
+and run the following command in directory `/MILP-Diff-Activity-Pattern`:
+```
+python3 main.py
+```
+You obtain an optimum activity pattern, covering 18 rounds of CRAFT in single-tweak model like this: 
+```
+Number of rounds: 18
+1100000011001110
+0001000000001001
+0100010000000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000100011000
+0100010001000010
+0001000000011000
+1100000000000010
+Number of active Sboxes: 68
+```
 
-We knew that CryptoSMT uses a naive approach to model differntial behaviour of a given Sbox. Therefore, we improved the Sbox encoding method used in CryptoSMT and then it could find an optimum trial very faster than before. Although we could find an optimum or (non-optimum) tril for large number of rounds very faster than before, but the problem of computing the differential effect for a given input/output differences were still time consuming for large number of rounds. In other words, the number of distinct optimum (and non-optimum) diffrential trails with the same input/output diffrences for CRAFT were so much that we couln't count all of them for large number of rounds. In this stage we used divide and conquer strategy! We divided a long part to some smaller pieces, since we could compute the differential effect for smaller pieces efficiently. 
+Another interesting fact we found in this stage was that, the activity pattern of an optimum differential trail is unique, when the input/output activity patterns are fixed! However the problem of finding an obtimum differential trail for large number of rounds were still time consuming when we used CryptoSMT. 
 
-The following pictures, depict those smaller pieces we have used to build differential distinguishers for CRAFT in the single-tweak setting. As you can see in these pictures, all of them are optimimum from the numuber of active Sboxes point of view. We evaluate the probability of each part spereately, and then multiply them together (according to markov assumption) to fint the probability of the whole differntial distinguisher.
+We knew that CryptoSMT uses a naive approach to model differntial behaviour of a given Sbox. Therefore, we improved the Sbox encoding method used in CryptoSMT and then it could find an optimum trial very faster than before. For example if we substitute all passive variables obtained in the above activity pattern for 18 rounds, we can easily find an optimum differential trail covering 18 rounds of CRAFT in the single tweak model, with CryptoSMT
 
-Since the differences in the middle parts are not fixed and can take more than one values, we evaluated the probaility for all combination of possible input/output differences for each aprt and then arranged them into a matrix. In other words we obtain a matrix containing the differential effects corresponding to a fixed input/output differences for each part, and the final bounds for the whole differential effects are obtained by multiplying the matrices corresponding to it's components. We used different componetes to cover even, and odd number of rounds, and you can see the possible input/output differences for each part in this directories: `/Results-Diff-ST/Eveneven_possible_ios.txt`, and `/Results-Diff-ST/Odd/odd_possible_ios.txt`. We use the same strategy for related-twek setting. All of our distinguishers are consisted of three components, Ein, Em, and Eout, except for that 13-round differential distinguisher which is consisted of four parts, Ein, Em, Em, and Eout.  In other words istead of using a 4-round middle part we have used two consecuitive 2-round components to build the middle part of that 13-round distinguisher. 
+```
+Characteristic for craft - Rounds 18 - Wordsize 64 - Weight 136 - Time 38.15s
+Rounds	x                   y                   z                   w                   
+---------------------------------------------------------------------------------------
+0	0xFF000000FF00FFF0  0xFF000000000000F0  0x000F00000000F00F  -6                  
+1	0x000F00000000A00F  0x000F0000000FA000  0x0A000F00000000F0  -6                  
+2	0x0F000F00000000F0  0x0F000F000F0000F0  0x000F000F000FF000  -8                  
+3	0x000F000F000AA000  0x000F000F0005A000  0x0A0005000F0000F0  -8                  
+4	0x0A000A000F0000A0  0x0A000A00050000A0  0x000A0005000AA000  -8                  
+5	0x000A000A000DA000  0x000A000A0007A000  0x0A0007000A0000A0  -8                  
+6	0x050005000F0000A0  0x050005000A0000A0  0x000A000A00055000  -8                  
+7	0x000A000A0007A000  0x000A000A000DA000  0x0A000D000A0000A0  -8                  
+8	0x0A000A00050000F0  0x0A000A000F0000F0  0x000F000F000AA000  -8                  
+9	0x000A000A0005F000  0x000A000A000FF000  0x0F000F000A0000A0  -8                  
+10	0x0F000F000A0000D0  0x0F000F00050000D0  0x000D0005000FF000  -8                  
+11	0x00070007000AF000  0x00070007000DF000  0x0F000D0007000070  -8                  
+12	0x0A000A00050000D0  0x0A000A000F0000D0  0x000D000F000AA000  -8                  
+13	0x000A000A000FF000  0x000A000A0005F000  0x0F0005000A0000A0  -8                  
+14	0x0A000A000F0000A0  0x0A000A00050000A0  0x000A0005000AA000  -8                  
+15	0x000A000A0005D000  0x000A000A000FD000  0x0D000F000A0000A0  -8                  
+16	0x0A000A000A0000A0  0x0A000A00000000A0  0x000A0000000AA000  -6                  
+17	0x000A0000000AA000  0x000A00000000A00A  0xAA000000000000A0  -6                  
+18	0xAA000000000000A0  none                none                none                
+
+Weight: 136
+
+```
+
+Although we could find an optimum or (non-optimum) tril for large number of rounds very faster than before, but the problem of computing the differential effect for a given input/output differences were still time consuming for large number of rounds. In other words, the number of distinct optimum (and non-optimum) diffrential trails with the same input/output diffrences for CRAFT were so much that we couln't count all of them for large number of rounds. In this stage we used divide and conquer strategy! We divided a long part to some smaller pieces, since we could compute the differential effect for smaller pieces efficiently. 
+
+The following pictures, depict those smaller pieces we have used to build differential distinguishers for CRAFT in the single-tweak setting. As you can see in these pictures, all of them are optimimum from the numuber of active Sboxes point of view. We evaluate the probability of each part spereately, and then multiply them together (according to markov assumption) to find the probability of the whole differntial distinguisher.
+
+Since the differences in the middle parts are not fixed and can take 100 different values, we evaluated the probaility for all combination of possible input/output differences for each part and then arranged them into a matrix. In other words we obtain a matrix containing the differential effects corresponding to a fixed input/output differences for each part, and the final bounds for the whole differential effects are obtained by multiplying the matrices corresponding to it's components. We use different componetes to cover even, and odd number of rounds, and you can see the possible input/output differences for each part in these files: [even_possible_ios.txt](Even/Results-Diff-ST/Eveneven_possible_ios.txt), and [odd_possible_ios.txt](Results-Diff-ST/Odd/odd_possible_ios.txt). All of our distinguishers are consisted of three components, Ein, Em, and Eout, except for 13-round differential distinguisher which is consisted of four parts, Ein, Em, Em, and Eout.  In other words istead of using a 4-round middle part we have used a 2-round components twice, to build the middle part of that 13-round distinguisher. 
 
 ### Ein-Even-4r
 ![ein_even](/Images/Even/ein_even_new.svg)
-You can reproduce the results related to the above components by running the following command in this direcrtory: `/SAT-SMT-ST/`
+You can reproduce the results related to the above components by running the following command in this direcrtory: `/SAT-SMT-ST/`:
 
 ```
 python3 ein_even_4r.py --inputfile examples/EinEven/ein_even_4r.yaml 
 ```
 ### Ein-Even-6r
-We also use an extended version of the above component which covers 6 rounds of CRAFT, and your can reproduce the results related to it by running the following command, in directory `/SAT-SMT-ST/`. 
+We also use an extended version of the above component which covers 6 rounds of CRAFT, and you can reproduce the results related to it, by running the following command, in directory `/SAT-SMT-ST/`:
 ```
 python3 ein_even_6r.py --inputfile examples/EinEven/ein_even_6r.yaml
 ```
 ### Em-Even-2r
-The following 2-round compoent is used as the middle part in our 12-round differential distinguisher. 
+The following 2-round component is used as the middle part in our 12-round differential distinguisher. 
 ![em_even](/Images/Even/em_even_new.svg)
-You can reproduce the results related to this component, by running the following command in directory `/SAT-SMT-ST/`.
+You can reproduce the results related to this component, by running the following command in directory `/SAT-SMT-ST/`:
 ```
 python3 em_even_2r.py --inputfile examples/EmEven/em_even_2r.yaml
 ```
 The following figure, is a visualization of the matrix we have produced for the above 2-round middle part.
 ![em_even_2r_matrix](/Results-Diff-ST/Even/em_even_2r.svg)
 ### Em-Even-4r
-We use a 4-round component which is obtained by extending the above 2-round middle part by two rounds, as the middle part in our 14-round differential distinguisher for CRAFT.  You can reproduce the results related to this above component, by running the following command in directory `/SAT-SMT-ST/`.
+We use a 4-round component which is obtained by extending the above 2-round middle part by two rounds, as the middle part in our 14-round differential distinguisher for CRAFT.  You can reproduce the results related to this component, by running the following command in directory `/SAT-SMT-ST/`:
 ```
 python3 em_even_4r.py --inputfile examples/EmEven/em_even_4r.yaml
 ```
-The following figure, is a visulaization of the matrix we have produced for the above 4-round component.
+The following figure, is a visulaization of the matrix we have produced for the 4-round component, which is used as the middle part in our 14-round differential distinguisher.
 ![em_even_4r_matrix](/Results-Diff-ST/Even/em_even_4r.svg)
 ### Eout-Even-6r
 The following figure, shows the 6-round component which is used as Eout (last part), in our 10/12/14-round differential distinguishers. 
 ![eout_even](/Images/Even/eout_even_new.svg)
-You can reproduce the results related to the above component, by running the following command in directory `/SAT-SMT-ST/`
+You can reproduce the results related to the above component, by running the following command in directory `/SAT-SMT-ST/`:
 ```
 python3 eout_even_6r.py --inputfile examples/EoutEven/eout_even_6r.yaml 
 ```
 ### Ein-Odd-4r
-The following 4-round component is used as the Ein (first part), in our 9/11/13-rounds differential distinguishers.
+The following 4-round component is used as Ein (first part), in our 9/11/13-rounds differential distinguishers.
 ![ein_odd](/Images/Odd/ein_odd_new.svg)
-In order to reproduce the results related to the above component, you can run the following comand in directory `/SAT-SMT-ST/`
+In order to reproduce the results related to the above component, you can run the following comand in directory `/SAT-SMT-ST/`:
 ```
 python3 ein_odd_4r.py --inputfile examples/EinOdd/ein_odd_4r.yaml
 ```
 ### Em-Odd-2r
 We use the following 2-round component as the middle part in 11/13-round differential distinguishers.
 ![em_odd](/Images/Odd/em_odd_new.svg)
-The results we have obtained for the above component, can be reproduced by running the following command in directory `/SAT-SMT-ST/`.
+The results we have obtained for the above component, can be reproduced by running the following command in directory `/SAT-SMT-ST/`:
 ```
 python3 em_odd_2r.py --inputfile examples/EmOdd/em_odd_2r.yaml
 ```
@@ -131,11 +195,11 @@ The followig picture is a visualization of the matrix we have obtained for the a
 ### Eout-Odd-5r
 The following 5-round component is used as Eout (last part), in 9/11/13-round differential distinguishers.
 ![eout_odd](/Images/Odd/eout_odd_new.svg)
-The results related to the above part, can be reproduced by running the following command in directory `/SAT-SMT-ST/`.
+The results related to the above part, can be reproduced by running the following command in directory `/SAT-SMT-ST/`:
 ```
 python3 eout_odd_5r.py --inputfile examples/EoutOdd/eout_odd_5r.yaml
 ```
-We have recorded all our results related to single-tweak, and related-tweak setting in directories `/Results-Diff-ST`, and `/Results-Diff-RT` respectively. We have also prepared two different [SageMath](https://www.sagemath.org/) worksheets, to calculate a lower bound for differential effects. One worksheet is named `ProbabilityComputationEven.ipynb`, and located in `/Results-Diff-ST/Even`, which is used for 10/12/14-rounds differential distinguishers, and another worksheet is named `ProbabilityComputationOdd.ipynb`, and located in `/Results-Diff-ST/Odd`, whih is used for 9/11/13-rounds differential distinguishers. Some contents of `ProbabilityComputationEven.ipynb` which are related to the bounds we have proposed for the differential effect of 10/12/14-rounds of CRAFT, are represented in the following lines .
+We have recorded all our results related to single-tweak, and related-tweak settings in directories `/Results-Diff-ST`, and `/Results-Diff-RT` respectively. We have also prepared two different [SageMath](https://www.sagemath.org/) worksheets, to calculate a lower bound for differential effects. One worksheet is named `ProbabilityComputationEven.ipynb`, and located in `/Results-Diff-ST/Even`, which is used for 10/12/14-rounds differential distinguishers, and another worksheet is named `ProbabilityComputationOdd.ipynb`, and located in `/Results-Diff-ST/Odd`, whih is used for 9/11/13-rounds differential distinguishers in the single-tweak setting. Some contents of `ProbabilityComputationEven.ipynb` which are related to the bounds we have proposed for the differential effect of 10/12/14-rounds of CRAFT, are represented in the following lines .
 
 ### Ein-Even-4 Rounds
 Optimum weight: 25
@@ -246,6 +310,46 @@ print("number of optimum trails for %d rounds : 2^%0.4f" % (14, num_of_optimum_t
 
     p_14r = 2^-63.8061
     number of optimum trails for 14 rounds : 2^39.1814
+
+We use the same strategy for related-twek setting, and you can use the following commands to reproduce our results in related-tweak setting.
+### RTK0-15 rounds-1
+```
+python3 cryptosmt_ein_tk0_5r_usedfor_15r.py --inputfile examples/craftrtk/rtk0_5_rounds_usedfor_ein_15r.yaml
+python3 cryptosmt_eout_tk0_10r_outof_15r.py --inputfile examples/craftrtk/rtk0_10_rounds_usedfor_eout_15r.yaml
+```
+
+### RTK1-15 rounds-2
+```
+python3 cryptosmt_ein_tk1_7r_usedfor_15r.py --inputfile examples/craftrtk/rtk1_7_rounds_usedfor_ein_15r.yaml
+python3 cryptosmt_eout_tk1_8r_usedfor_15r.py --inputfile examples/craftrtk/rtk1_8_rounds_usedfor_eout_15r.yaml
+```
+### RTK1-16 rounds-1
+```
+python3 cryptosmt_ein_tk1_5r_usedfor_16r.py --inputfile examples/craftrtk/rtk1_5_rounds_usedfor_ein_16r.yaml
+python3 cryptosmt_eout_tk1_11r_usedfor_16r.py --inputfile examples/craftrtk/rtk1_11_rounds_usedfor_eout_16r.yaml
+```
+### RTK1-16 rounds-2
+```
+python3 cryptosmt_ein_tk1_8r_usedfor_16r.py --inputfile examples/craftrtk/rtk1_8_rounds_usedfor_ein_16r.yaml
+python3 cryptosmt_eout_tk1_8r_usedfor_16r.py --inputfile examples/craftrtk/rtk1_8_rounds_usedfor_eout_16r.yaml
+```
+### RTK1-17 rounds:
+```
+python3 cryptosmt_ein_tk1_8r_usedfor_17r.py --inputfile examples/craftrtk/rtk1_8_rounds_usedfor_ein_17r.yaml 
+python3 cryptosmt_eout_tk1_9r_usedfor_17r.py --inputfile examples/craftrtk/rtk1_9_rounds_usedfor_eout_17r.yaml 
+```
+
+### RTK2-17 rounds:
+```
+python3 cryptosmt_ein_tk2_7r_usedfor_17r.py --inputfile examples/craftrtk/rtk2_7_rounds_usedfor_ein_17r.yaml 
+python3 cryptosmt_eout_tk2_10r_usedfor_17r.py --inputfile examples/craftrtk/rtk2_10_rounds_usedfor_eout_17r.yaml 
+```
+
+### RTK3-16 rounds:
+```
+python3 cryptosmt_ein_tk3_6r_usedfor_16r.py --inputfile examples/craftrtk/rtk3_6_rounds_usedfor_ein_16r.yaml 
+python3 cryptosmt_eout_tk3_10r_usedfor_16r.py --inputfile examples/craftrtk/rtk3_10_rounds_usedfor_eout_16r.yaml 
+```
 
 <a name="experimental_verification"></a>
 ## Experimental Verification of Some Differential Distinguishers
