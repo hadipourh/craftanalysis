@@ -136,7 +136,7 @@ p_ein_6r = matrix([1.9999717437713116e-09, 2.1114487935847137e-10, 1.66942726309
 num_of_opt_trails_ein_6r = matrix([31872, 3168, 26432, 26432, 26432, 0, 31552, 31552, 26432, 0, 31552, 31552, 0, 3168, 0, 0, 31872, 0, 26432, 26432, 3496, 0, 0, 5416, 2920, 0, 0, 2920, 2920, 0, 0, 2920, 0, 0, 0, 1920, 3496, 0, 0, 3496, 1920, 0, 5416, 0, 0, 0, 2920, 0, 0, 0, 2920, 0, 1920, 0, 1920, 0, 0, 0, 3496, 0, 5840, 0, 6992, 0, 6992, 0, 5840, 0, 6992, 0, 5840, 0, 0, 0, 0, 0, 5840, 0, 6992, 0, 5840, 9008, 0, 0, 6992, 5840, 0, 0, 6992, 5840, 0, 0, 0, 2016, 0, 0, 5840, 6992, 0, 0])
 ```
 
-## Em-Even-2 Rounds
+### Em-Even-2 Rounds
 
 Optimum weight: 16
 
@@ -232,14 +232,25 @@ print("number of optimum trails for %d rounds : 2^%0.4f" % (14, num_of_optimum_t
 
 ## Experimental Verification of Some Differential Distinguishers
 
-In orderto verify our results to results, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these 
-
+In order to verify our results for differential analysis of CRAFt, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these codes, you need to use `-fopemp` comipler flag when you are compiling the codes. For example if you want to compile `craft_ein_odd.cpp` to compare the empiricial, with so-called theoretical values we have obtained for the differential effect of the first component Ein-Even-4r used in our 9/11/13-round differentail distinguishers, you can compile it by the following command: 
+```
+g++ craft_ein_even.cpp -o craft_ein_even.o -fopenmp
+```
+and then run it by the following command: 
+```
+./craft_ein_even.o
+```
+If you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical values we have obtained for this component is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.  
 ---
 
 ## Integral Cryptanalysis Based on Division Property
 
-Todo ...
+Before we can improve the integral distinguishers of CRAFT, we verfied the designers' claim for this analysis. In order to verify the designers' claim, we have prepared a program to find the integral distinguishers of CRAFT, using division property based on two subsets. The following picture, depicts the variables used in the MILP model which is created by the program to model the propagation of division properties through the cipher.
 
 ![integral_vars](/Images/Integral/craft_integral_vars.svg)
+You can find this program in the folder [MILP-Integral](/MILP-Integral), and run it by the following command: 
+```
+python3 main.py
+```
 
----
+# License

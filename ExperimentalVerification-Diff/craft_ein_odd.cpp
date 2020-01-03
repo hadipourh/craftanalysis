@@ -198,7 +198,7 @@ int main() {
     int R = 4; //Number of rounds
     //##########################    
     int N1 = Nthreads;//Number of paralle threads
-    int deg = 9;
+    int deg = 10;
 	int N2 = 1 << deg;//2^(deg) : Number of bunches per threads
 	int N3 = 1024;// Number of queries per bunches
     //##########################
