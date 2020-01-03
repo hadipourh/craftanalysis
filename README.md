@@ -47,11 +47,18 @@ Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this 
 
 ## Differential Cryptanalysis
 
-In order to find differential distinguishers, and obtain a lower bound for the probability of differentials, we do the following steps.
-1- Todo...
+The first observation that motivated us to begin the cryptanalysis of CRAFT, is related to the influence of clustering effect on the differential cryptanalysis of CRAFT. It dates back to that day, we added CRAFT to the CryptoSMT's cipher suite. When we was checking the corretness of our implementation we obserevd that the existing bounds for the differential effects of CRAFT that were claimed by the designers, can be dramatically improved, but we only could use CryptoSMT, or bit-oriented MILP models, for the small number of rounds, and we couldn't find a bound for large number of rounds, because SAT/SMT or MILP-based methods are not that efficient for large number of rounds. 
 
+So we decided to find a way to overcome this problem. The first idea we used, was building a word-oriented MILP model for CRAFT, and using the obtained activity pattern to make the bit-oriented model easier, beacuse in contrast to bit-oriented MILP or SMT/SAT models, a word-oriented one can be solved very fast even for large number of rounds. As we already mentioned, we use Gurobi to solve the obtained MILP prolems. After solving the word-oriented MILP problem, we used the obtained solutions to make the bit-oriented models easier to solve. 
+
+In other words, the obtained solutions from the word-roiented MILP problem, showed us what the activity pattern of an optimum differential trail could be, and then we substituted all passive variables in the bit-oriented models with zeros, which made the problem easier, and we could solve the bit-oriented model faster, to find a real differential trail. Another interesting fact we have found in this stage was that the activity pattern of an optimum differential trail with a fixed input/output actiity pattern is unique for CRAFT! However the problem of finding an obtimum differential trail for large number of rounds were still time consuming when we used CryptoSMT. 
+
+We knew that CryptoSMT uses a naive approach to model differntial behaviour of a given Sbox. Therefore, we improved the Sbox encoding method used in CryptoSMT and then it could find an optimum trial very faster than before. Although we could find an optimum or (non-optimum) tril for large number of round very faster than before, but the problem of computing the differential effect for a given input/output differences were still time consuming for large number of rounds. In other words, the number of distinct optimum (and non-optimum) diffrential trails with the same input/output diffrences for CRAFT were so much that we couln't count all of them for large number of rounds. In this stage we used divide and conquer strategy! We divided a long part to some smaller pices, since we could compute the differential effect for smaller pieces efficiently. 
+
+The following pictures, depict those smaller pieces we have used to improve differentil distiguisher of CRAFT in the single tweak setting. As you can see in these pictures, all of them are optimimum from the numuber of active Sboxes point of view. We evaluate the probability of each part spereately, and then multiply them together (according to markov assumption) to fint the probability of the whole differntial distinguisher.
 
 ![ein_even](/Images/Even/ein_even_new.svg)
+
 
 ![em_even](/Images/Even/em_even_new.svg)
 ![em_even_2r_matrix](/Results-Diff-ST/Even/em_even_2r.svg)
