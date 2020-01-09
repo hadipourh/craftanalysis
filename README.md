@@ -3,20 +3,20 @@
 ![craft_round_function](/Images/CRAFT/craft_round_function.svg "A Round of CRAFT")
 
 ## Contents
-1.[Prerequisites](#prerequisites)
+1. [Prerequisites](#prerequisites)
 
-2.[Zero-Correlation Cryptanalysis](#zc)
+2. [Zero-Correlation Cryptanalysis](#zc)
 
-3.[Differential Cryptanalysis](#diff)
+3. [Differential Cryptanalysis](#diff)
 
-4.[Experimental Verification](#experimental_verification)
+4. [Experimental Verification](#experimental_verification)
 
-5.[Integral Cryptanalysis](#integral)
+5. [Integral Cryptanalysis](#integral)
 
 <a name="prerequisites"></a>
 ## Prerequisites and Installation
 
-In this repository, both MILP, and SMT/SAT based methods are used to analize CRAFT. For MILP-based method we use [Python3](https://www.python.org/) to produce the MILP models, and [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
+In this repository, both MILP, and SMT/SAT based methods are used to analyse CRAFT. For MILP-based method we use [Python3](https://www.python.org/) to produce the MILP models, and [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
 
 [CryptoSMT](https://github.com/kste/cryptosmt) is used for computing the differential effects. We have improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. Therefore, If you want to use our SAT/SMT-based tools, you need to do the same installation recepies as CryptoSMT. Note that, if you already have installed CryptoSMT, you only need to replace the `config.py` file with your own `config.py` file in folders [SAT-SMT-ST](/SAT-SMT-ST), and [/SAT-SMT-RT](/SAT-SMT-RT). 
 
@@ -65,7 +65,7 @@ Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this 
 <a name="diff"></a>
 ## Differential Cryptanalysis
 
-The first observation that motivated us to begin the cryptanalysis of CRAFT, is related to the influence of clustering effect on the differential cryptanalysis of CRAFT. It dates back to that day, we added CRAFT to the CryptoSMT's cipher suite. When we was checking the corretness of our implementation we obserevd that the existing bounds for the differential effects of CRAFT that were claimed by the designers, can be dramatically improved, but we only could use CryptoSMT, or bit-oriented MILP models, for the small number of rounds, and we couldn't find a bound for large number of rounds, because SAT/SMT or MILP-based methods are not that efficient for large number of rounds. 
+The first observation that motivated us to begin the cryptanalysis of CRAFT, is related to the influence of clustering effect on the differential cryptanalysis of CRAFT. It dates back to that day, we added CRAFT to the CryptoSMT's cipher suite. When we were checking the corretness of our implementation we obserevd that the existing bounds for the differential effects of CRAFT that were claimed by the designers, can be dramatically improved, but we only could use CryptoSMT, or bit-oriented MILP models, for the small number of rounds, and we couldn't find a bound for large number of rounds, because SAT/SMT or MILP-based methods are not that efficient for large number of rounds. 
 
 So we decided to find a way to overcome this difficulty. The first idea, was building a word-oriented MILP model for CRAFT, and using the obtained activity pattern to make the bit-oriented model easier, beacuse in contrast to bit-oriented MILP or SMT/SAT models, a word-oriented one can be solved very fast even for large number of rounds. 
 
