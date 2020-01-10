@@ -1,5 +1,5 @@
 '''
-Applying the MILP-based method to find zero-correlation distinguishers of CRAFT
+Applying the MILP-based method to find an optimum differential activity pattern for CRAFT
 Copyright (C) June 1, 2019  Hosein Hadipour
 
 This program is free software: you can redistribute it and/or modify
