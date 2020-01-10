@@ -61,7 +61,7 @@ python3 main.py
 ```
 ![ZC-TK3](/Images/ZeroCorrelation/ZC-TK3-14Rounds.svg "Linear Equivalent of CRAFT")
 
-Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this method, we didn't find a zero-correlation distinguisher, covering more than 14 rounds in these cases. Note that, sometimes finding a mathematical proof for the obtained distinguishre, might be not easy, just like the distinguisher we have presented for 14-rounds of CRAFT in case RTK0. 
+Although we inspected 15 rounds of CRAFT, in cases RTK0, RTK2, and RTK3 by this method, we didn't find a zero-correlation distinguisher, covering more than 14 rounds in these cases.
 
 ---
 <a name="diff"></a>
