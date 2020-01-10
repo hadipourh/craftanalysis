@@ -1,5 +1,5 @@
 '''
-Applying the MILP-based method to find differential distinguishers of CRAFT
+Applying the MILP-based method to find an optimum differential trail for CRAFT
 Copyright (C) July 9, 2019  Hosein Hadipour
 
 This program is free software: you can redistribute it and/or modify
