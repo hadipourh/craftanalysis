@@ -1,6 +1,6 @@
 # Comprehensive Security Analysis of CRAFT
 
-[CRAFT](https://sites.google.com/view/craftcipher/home) is a light-weight tweakable block cipher, designed to provide protection against differential fault attack ([DFA](https://en.wikipedia.org/wiki/Differential_fault_analysis)). The following figure depicts one round of CRAFT, and you can see it's specification in more details [here](https://eprint.iacr.org/2019/210). We could improve differential, zero-correleation, and integral distinguishers of this cipher during our [work](?) which has been published in [FSE-2020](https://fse.iacr.org/2020/index.html), and this repository contains the codes we have used to find these distinguishers.
+[CRAFT](https://sites.google.com/view/craftcipher/home) is a light-weight tweakable block cipher, designed with efficient protection against differential fault attacks ([DFA](https://en.wikipedia.org/wiki/Differential_fault_analysis)) in mind. The following figure depicts one round of CRAFT, and you can see it's specification in more details [here](https://eprint.iacr.org/2019/210). We could improve differential, zero-correleation, and integral distinguishers of this cipher during our [work](?) which has been published in [FSE-2020](https://fse.iacr.org/2020/index.html), and this repository contains the codes we have used to find these distinguishers.
 
 ![craft_round_function](/Images/CRAFT/craft_round_function.svg "A Round of CRAFT")
 
