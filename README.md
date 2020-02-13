@@ -18,7 +18,7 @@
 <a name="prerequisites"></a>
 ## Prerequisites and Installation
 
-In this repository, both MILP, and SMT/SAT based methods are used to analyse CRAFT. For MILP-based method we use [Python3](https://www.python.org/) to produce the MILP models, and [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
+In this repository, both MILP, and SMT/SAT based methods are used to analyse CRAFT. For MILP-based method we [Python3](https://www.python.org/) is used to produce the MILP models, and the [Gurobi](https://www.gurobi.com/), is used as the solver. Therefore, you need to install Gurobi and link it to Python3. You can find the installation recepies [here](https://www.gurobi.com/documentation/8.1/remoteservices/installation.html). 
 
 [CryptoSMT](https://github.com/kste/cryptosmt) is used for computing the differential effects. We have improved CryptoSMT's Sbox encoding to make it faster for SPN ciphers. Therefore, If you want to use our SAT/SMT-based tools, you need to do the same installation recepies as CryptoSMT. Note that, if you have already installed CryptoSMT, you merely need to replace the `config.py` file with your own `config.py` file in folders [SAT-SMT-ST](/SAT-SMT-ST), and [SAT-SMT-RT](/SAT-SMT-RT). 
 
