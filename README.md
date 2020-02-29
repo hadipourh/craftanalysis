@@ -359,7 +359,7 @@ python3 cryptosmt_eout_tk3_10r_usedfor_16r.py --inputfile examples/craftrtk/rtk3
 <a name="experimental_verification"></a>
 ## Experimental Verification of Some Differential Distinguishers
 
-In order to verify our results for differential analysis of CRAFt, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). Since `OpenMP` is used in these codes, you need to use `-fopemp` comipler flag when you are compiling the codes. For example if you want to compile `craft_ein_odd.cpp` to compare the empiricial, with so-called theoretical values we have obtained for the differential effect of the first component Ein-Odd-4r used in our 9/11/13-round differentail distinguishers, you can compile it by the following command: 
+In order to verify our results in differential cryptanalysis of CRAFT, we have prepared some codes to simmulate our differential distinguishers. All the codes we have used for these simmulations are located in the folder [ExperimentalVerification-Diff](/ExperimentalVerification-Diff). It is needed to use `-fopemp` comipler flag when you are compiling the codes, since `OpenMP` is used in these codes. For example [craft_ein_odd.cpp](https://github.com/hadipourh/craftanalysis/blob/master/ExperimentalVerification-Diff/craft_ein_odd.cpp) has been prepared to compare the empiricial, and the so-called theoretical values we have obtained for the differential effect of the first component Ein-Odd-4r used in our 9/11/13-round differentail distinguishers, and you can compile it by the following command: 
 ```
 g++ craft_ein_odd.cpp -o craft_ein_odd.o -fopenmp
 ```
@@ -367,7 +367,7 @@ and then run it by the following command:
 ```
 ./craft_ein_odd.o
 ```
-If you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical value we have obtained for this component, when the input, and output differences are `0xAA000000AA00AAA0`, and `0x0A0005000A0000A0` respectively, is equal to `2^(-18.86)`. However we invite those who have more computing power, to do the similar simmultaions for the larger number of rounds.
+If you do the above simmulations, you see that the experimental probability is approximately equal to `2^(-18.66)`, while the so-called theoretical value we have obtained for this component, when the input, and output differences are `0xAA000000AA00AAA0`, and `0x0A0005000A0000A0` respectively, is equal to `2^(-18.86)`. However we invite those, who have more computing power, to do the similar simmultaions for the more number of rounds.
 
 ---
 
