@@ -107,7 +107,7 @@ Number of rounds: 18
 Number of active Sboxes: 68
 ```
 
-Another interesting fact we found in this stage was that, the activity pattern of an optimum differential trail is unique, when the input/output activity patterns are fixed! However the problem of finding an obtimum differential trail for large number of rounds were still time consuming when we used CryptoSMT. 
+Another interesting fact we found in this stage was that, the activity pattern of an optimum differential trail is unique, when the input/output activity patterns are fixed! However the problem of finding an optimum differential trail for large number of rounds were still time consuming when we used CryptoSMT. 
 
 We knew that CryptoSMT uses a naive approach to model differntial behaviour of a given Sbox. Therefore, we improved the Sbox encoding method used in CryptoSMT and then it could find an optimum trial very faster than before. For example if we substitute all passive variables obtained in the above activity pattern for 18 rounds, we can easily find an optimum differential trail covering 18 rounds of CRAFT in the single tweak model, with CryptoSMT
 
