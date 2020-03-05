@@ -470,7 +470,7 @@ class Craft:
 
     def solve_model(self):
         """
-        Solve the MILP model to search the integral distinguisher of MIBS.
+        Solve the MILP model
         """
         time_start = time.time()
         m = read(self.filename_model)
