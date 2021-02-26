@@ -37,6 +37,13 @@ const uint8_t Q[16] = { 0xC, 0xA, 0xF, 0x5, 0xE, 0x8, 0x9, 0x2, 0xB, 0x3, 0x7, 0
 const uint8_t RC3[32] = { 0x1, 0x4, 0x2, 0x5, 0x6, 0x7, 0x3, 0x1, 0x4, 0x2, 0x5, 0x6, 0x7, 0x3, 0x1, 0x4, 0x2, 0x5, 0x6, 0x7, 0x3, 0x1, 0x4, 0x2, 0x5, 0x6, 0x7, 0x3, 0x1, 0x4, 0x2, 0x5 };
 const uint8_t RC4[32] = { 0x1, 0x8, 0x4, 0x2, 0x9, 0xc, 0x6, 0xb, 0x5, 0xa, 0xd, 0xe, 0xf, 0x7, 0x3, 0x1, 0x8, 0x4, 0x2, 0x9, 0xc, 0x6, 0xb, 0x5, 0xa, 0xd, 0xe, 0xf, 0x7, 0x3, 0x1, 0x8 };
 
+void init_prng(int offset) {
+	//int initial_seed = 0x5EC7F2B0;
+    //int initial_seed = 0x30051991;
+    unsigned int initial_seed = 10*time(NULL) + offset;
+    srand(initial_seed);   // Initialization, should only be called once. int r = rand();
+	printf("[+] PRNG initialized to 0x%08X\n", initial_seed);
+}
 
 void Initialize(uint8_t TK_enc[][16], uint8_t TK_dec[][16], uint8_t key_0[16], uint8_t key_1[16], uint8_t Tweak[16], int r) {    
 	for (uint8_t i = 0; i < 16; i++)
@@ -162,6 +169,8 @@ double verify(int R, int N1, int N2, int N3) {
 	#pragma omp parallel for
 	for(counter = 0; counter < N1; counter++)
 	{
+        int ID = omp_get_thread_num();
+        init_prng(ID);
         uint8_t Tweak[16];// = {0xD, 0xa, 0xA, 0x0, 0xA, 0xA, 0x0, 0xA, 0x6, 0x5, 0xC, 0x0, 0x0, 0x1, 0x1, 0x1}; // Tweak
         uint8_t TK_enc[4][16];
         uint8_t TK_dec[4][16];
@@ -176,7 +185,6 @@ double verify(int R, int N1, int N2, int N3) {
             Initialize(TK_enc, TK_dec, Key_0, Key_1, Tweak, R);
 			num += differentialQuery(dp, dc, R, TK_enc, TK_dec, N3);
         }
-		int ID = omp_get_thread_num();
 		NUM[ID] = num;
 	}
     cout << " time on clock(): " <<(double) (clock() - clock_timer) / CLOCKS_PER_SEC<<endl;
@@ -194,11 +202,11 @@ double verify(int R, int N1, int N2, int N3) {
 }
 
 int main() {
-    srand(time(NULL));   // Initialization, should only be called once. int r = rand();
-    const int n = 10; //number of indipendent experiments
+    // srand(time(NULL));   // Initialization, should only be called once. int r = rand();
+    const int n = 10; //number of independent experiments
     int R = 6; //Number of rounds
     //##########################    
-    int N1 = Nthreads;//Number of paralle threads
+    int N1 = Nthreads;//Number of parallel threads
     int deg = 10;
 	int N2 = 1 << deg;//2^(deg) : Number of bunches per threads
 	int N3 = 1024;// Number of queries per bunches
